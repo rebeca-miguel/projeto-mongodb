@@ -1,0 +1,81 @@
+// MongoDB Playground
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+const database = 'Biblioteca';
+const collection = 'filmes';
+
+// The current database to use.
+use(Biblioteca);
+db.filmes.insertOne({
+NOME:"Pânico",
+DIRETOR:"Wes Craven",
+ELENCO:"Neve Campbell,Courtney Cox,David Arquette",
+ANO:1996,
+PRÊMIOS:6
+});
+
+
+db.filmes.find()
+
+//Busque filmes lançados em 2001
+
+use(Biblioteca)
+
+db.filmes.find(
+  {ANO: 2001}
+)
+
+
+//Busque nome de outor e elenco
+use('Biblioteca')
+
+db.filmes.find(
+  {NOME:"Duna"}
+  )
+
+use('Biblioteca')
+db.filmes.find(
+  {DIRETOR:{$in:['Peter Jackson','Walter Salles']}}
+  )  
+
+//Busque filmes lançados entre 1997 e 2004.
+
+  use("Biblioteca")
+db.filmes.find(
+  {ANO:{ $gt:1997, $lte: 2004}}
+  )  
+
+
+ //Busque filmes lançados entre 2002 e 2021 e que contenham as atrizes Naomi Watts ou Carey Mulligan.
+use('Biblioteca')
+db.filmes.find(
+  {ANO:{$gt: 2002, $lte: 2021}, {$text:{$search:"Naomi Watts","Carey Mulligan"}}}
+  ) 
+
+  //Busque todos os filmes que não sejam entre 2001 e 2005.
+use('Biblioteca')
+db.filmes.find(
+  {ANO:{$nin:[2001,2005]}}
+  )  
+
+
+
+//Crie uma index usando o ano como referência.
+use('Biblioteca')
+db.filmes.createIndex(
+  {ANO:'text'}
+)
+
+//- Some os prêmios de todos os filmes.
+use('Biblioteca')
+db.filmes.aggregate([{
+    $match: {ANO: 2001}},
+    {$project: {
+        title:2, directors: 2
+
+
+//Na coleção `sample_mflix` do Mongo Atlas DB, crie uma consulta que retorne os filmes com os seus
+comentários utilizando o estágio de agrupamento (e.g.: `$lookup`).
+{$sort: {title:1}},
+    {$limit: 2}
+    ]).pretty()
